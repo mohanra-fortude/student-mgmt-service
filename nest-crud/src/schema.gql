@@ -1,0 +1,42 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Student {
+  id: Int!
+  name: String!
+  email: String
+  dob: String
+  age: Int
+  isActive: Int
+}
+
+type Query {
+  student: [Student!]!
+  studentOne(id: Int!): Student!
+}
+
+type Mutation {
+  createStudent(createStudentInput: CreateStudentInput!): Student!
+  uploadFile(file: Upload!): Boolean!
+  updateStudent(updateStudentInput: UpdateStudentInput!): Student!
+  removeStudent(id: Int!): Student!
+}
+
+input CreateStudentInput {
+  name: String!
+  email: String
+  dob: String
+  age: Float
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input UpdateStudentInput {
+  name: String
+  email: String
+  dob: String
+  age: Float
+  id: Int!
+}
