@@ -11,7 +11,6 @@ import { StudentModule } from './student/student.module';
     TypeOrmModule.forRoot(),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      uploads:false
     }),
     StudentModule,
     

@@ -20,11 +20,11 @@ export class UploadService {
     json.Sheet1.map(async (val, key) => {
       console.log(val);
       try {
-        const date = val.C.toISOString().substring(0, 10);
+        // const date:string = val.C.toISOString().substring(0, 10);
         await this.queue.add('create', {
           id: val.A,
           name: val.B,
-          dob: date,
+          dob: val.C,
           email:val.D
         });
       } catch (error) {

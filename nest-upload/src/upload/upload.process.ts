@@ -20,14 +20,20 @@ export class UploadConsumer {
   createJob(job: Job) {
     console.log('createCandidate1', job.data);
 
+    let date = new Date();
+    let currentDate: number = date.getFullYear();
+    let userBirthYear = parseInt(job.data.dob.substring(0, 4));
+    let age: number = currentDate - userBirthYear;
+
     const createStudentInput: Object = {
       name: job.data.name,
       dob: job.data.dob,
-      email: job.data.email
-    }
+      email: job.data.email,
+      age: age,
+    };
 
-  //    {`{name:"${job.data.name}",dob:"${job.data.dob}",email:"${job.data.email}"}`
-  // };
+    //    {`{name:"${job.data.name}",dob:"${job.data.dob}",email:"${job.data.email}"}`
+    // };
 
     // const mutation = gql`
     //   mutation CreateStudent($createStudent: CreateStudentInput!) {
@@ -73,13 +79,12 @@ export class UploadConsumer {
       `Completed job ${job.id} of type ${job.name} with result ${result}`,
     );
   }
-
   @OnQueueFailed()
   failed(job: Job, err: Error) {
     //websocket code
     // this.appGateway.handleMessage(
     //   `Failed job ${job.id} of type ${job.name} with error ${err}...`,
     // );
-    Logger.log(`Failed job ${job.id} of type ${job.name} with error ${err}...`);
+    Logger.log(`Failed joob ${job.id} of type ${job.name} with error ${err}...`);
   }
 }

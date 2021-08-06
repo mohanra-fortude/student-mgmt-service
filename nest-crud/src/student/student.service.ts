@@ -24,7 +24,7 @@ export class StudentService {
     console.log(userBirthYear, currentDate, age, 'dobb');
     createStudentInput.age = age;
 
-    console.log(createStudentInput)
+    console.log(createStudentInput);
 
     const mutation = gql`
       mutation CreateStudent($createStudent: StudentInput!) {
@@ -40,23 +40,6 @@ export class StudentService {
       console.log;
       return data;
     });
-
-    // const res = axios
-    //   .post(this.endpoint, {
-    //     query: mutation,
-    //     variables: { createStudent: createStudentInput },
-    //   })
-    //   .then(
-    //     (response) => {
-    //       console.log(response.data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     },
-    //   );
-
-    // console.log(res);
-    // return res;
 
     // const newStudent = this.studentRepository.create(createStudentInput);
     // return this.studentRepository.save(newStudent);
@@ -104,7 +87,7 @@ export class StudentService {
   update(id: number, updateStudentInput: UpdateStudentInput) {
     let date = new Date();
     let currentDate: number = date.getFullYear();
-    let userBirthYear = parseInt(updateStudentInput.dob.slice(-4));
+    let userBirthYear = parseInt(updateStudentInput.dob.substring(0, 4));
     let age: number = currentDate - userBirthYear;
     console.log(userBirthYear, currentDate, age, updateStudentInput, 'dobb');
     updateStudentInput.age = age;
@@ -113,6 +96,17 @@ export class StudentService {
       mutation updateStudentById($id: Int!, $updateStudent: StudentPatch!) {
         updateStudentById(input: { studentPatch: $updateStudent, id: $id }) {
           __typename
+          query {
+            allStudents {
+              nodes {
+                id
+                name
+                age
+                email
+                dob
+              }
+            }
+          }
         }
       }
     `;
@@ -121,6 +115,7 @@ export class StudentService {
       id: id,
       updateStudent: updateStudentInput,
     }).then((data) => {
+      console.log('uploaded',data)
       return data;
     });
     // const updateStudent = this.studentRepository.create(updateStudentInput);

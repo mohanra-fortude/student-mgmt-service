@@ -6,7 +6,6 @@ export class CreateStudentInput {
   @Field()
   name: string;
 
-  @IsEmail()
   @Field({ nullable: true })
   email: string;
 
