@@ -85,6 +85,8 @@ export class UploadConsumer {
     // this.appGateway.handleMessage(
     //   `Failed job ${job.id} of type ${job.name} with error ${err}...`,
     // );
-    Logger.log(`Failed joob ${job.id} of type ${job.name} with error ${err}...`);
+    Logger.log(
+      `Failed joob ${job.id} of type ${job.name} with error ${err}...`,
+    );
   }
 }

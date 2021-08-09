@@ -13,7 +13,6 @@ import { StudentModule } from './student/student.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     StudentModule,
-    
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -17,18 +17,14 @@ export class StudentResolver {
     return this.studentService.create(createStudentInput);
   }
 
-  @Mutation(() => Boolean)
-  async uploadFile(
-    @Args({ name: 'file', type: () => GraphQLUpload })
-    { createReadStream, filename }: FileUpload,
-  ): Promise<boolean> {
-    return new Promise(async (resolve, reject) =>
-      createReadStream()
-        .pipe(createWriteStream(`./uploads/${filename}`))
-        .on('finish', () => resolve(true))
-        .on('error', () => reject(false)),
-    );
+  @Mutation(() => Student)
+  createStudents(
+    @Args({ name: 'createStudentInput', type: () => [CreateStudentInput] }) createStudentInputs: CreateStudentInput[],
+  ) {
+    return this.studentService.createStudents(createStudentInputs);
   }
+
+  
 
   @Query(() => [Student], { name: 'student' })
   findAll() {

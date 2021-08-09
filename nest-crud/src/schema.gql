@@ -18,25 +18,23 @@ type Query {
 
 type Mutation {
   createStudent(createStudentInput: CreateStudentInput!): Student!
-  uploadFile(file: Upload!): Boolean!
+  createStudents(createStudentInput: [CreateStudentInput!]!): Student!
   updateStudent(updateStudentInput: UpdateStudentInput!): Student!
   removeStudent(id: Int!): Student!
 }
 
 input CreateStudentInput {
+  id: Float
   name: String!
   email: String
   dob: String
   age: Float
 }
 
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
-
 input UpdateStudentInput {
+  id: Int!
   name: String
   email: String
   dob: String
   age: Float
-  id: Int!
 }

@@ -3,6 +3,9 @@ import { IsEmail, IsString } from 'class-validator';
 
 @InputType()
 export class CreateStudentInput {
+  @Field({ nullable: true })
+  id: number;
+
   @Field()
   name: string;
 

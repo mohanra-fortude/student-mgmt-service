@@ -45,6 +45,32 @@ export class StudentService {
     // return this.studentRepository.save(newStudent);
   }
 
+  createStudents(createStudentInputs: CreateStudentInput[]) {
+    createStudentInputs.forEach((val: any, key: any) => {
+      let date = new Date();
+      let currentDate: number = date.getFullYear();
+      let userBirthYear = parseInt(val.dob.substring(0, 4));
+      let age: number = currentDate - userBirthYear;
+      val.age = age;
+    });
+
+    console.log(createStudentInputs);
+
+    const mutation = gql`
+      mutation CreateStudents($createStudents: [StudentInput!]!) {
+        createStudents(input: { createMultiple: $createStudents }) {
+          __typename
+        }
+      }
+    `;
+
+    return request(this.endpoint, mutation, {
+      createStudents: createStudentInputs,
+    }).then((data) => {
+      console.log;
+      return data;
+    });
+  }
   findAll(): Promise<Student[]> {
     const query = gql`
       query {
@@ -115,7 +141,7 @@ export class StudentService {
       id: id,
       updateStudent: updateStudentInput,
     }).then((data) => {
-      console.log('uploaded',data)
+      console.log('uploaded', data);
       return data;
     });
     // const updateStudent = this.studentRepository.create(updateStudentInput);
