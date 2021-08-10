@@ -21,10 +21,7 @@ export class StudentService {
     let currentDate: number = date.getFullYear();
     let userBirthYear = parseInt(createStudentInput.dob.substring(0, 4));
     let age: number = currentDate - userBirthYear;
-    console.log(userBirthYear, currentDate, age, 'dobb');
     createStudentInput.age = age;
-
-    console.log(createStudentInput);
 
     const mutation = gql`
       mutation CreateStudent($createStudent: StudentInput!) {
@@ -37,7 +34,6 @@ export class StudentService {
     return request(this.endpoint, mutation, {
       createStudent: createStudentInput,
     }).then((data) => {
-      console.log;
       return data;
     });
 
@@ -54,8 +50,6 @@ export class StudentService {
       val.age = age;
     });
 
-    console.log(createStudentInputs);
-
     const mutation = gql`
       mutation CreateStudents($createStudents: [StudentInput!]!) {
         createStudents(input: { createMultiple: $createStudents }) {
@@ -67,7 +61,6 @@ export class StudentService {
     return request(this.endpoint, mutation, {
       createStudents: createStudentInputs,
     }).then((data) => {
-      console.log;
       return data;
     });
   }
@@ -87,7 +80,6 @@ export class StudentService {
     `;
 
     return request(this.endpoint, query).then((data) => {
-      console.log(data);
       return data.allStudents.nodes;
     });
   }
@@ -115,7 +107,6 @@ export class StudentService {
     let currentDate: number = date.getFullYear();
     let userBirthYear = parseInt(updateStudentInput.dob.substring(0, 4));
     let age: number = currentDate - userBirthYear;
-    console.log(userBirthYear, currentDate, age, updateStudentInput, 'dobb');
     updateStudentInput.age = age;
 
     const mutation = gql`
@@ -141,14 +132,9 @@ export class StudentService {
       id: id,
       updateStudent: updateStudentInput,
     }).then((data) => {
-      console.log('uploaded', data);
       return data;
     });
-    // const updateStudent = this.studentRepository.create(updateStudentInput);
-    // return this.studentRepository.update(
-    //   { id: updateStudent.id },
-    //   updateStudent,
-    // );
+   
   }
 
   remove(id: number) {

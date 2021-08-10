@@ -25,7 +25,6 @@ export class UploadResolver {
     @Args({ name: 'file', type: () => GraphQLUpload })
     { createReadStream, filename }: FileUpload,
   ) {
-    console.log('filename is', filename);
     const randomName = Array(4)
       .fill(null)
       .map(() => Math.round(Math.random() * 16).toString(16))

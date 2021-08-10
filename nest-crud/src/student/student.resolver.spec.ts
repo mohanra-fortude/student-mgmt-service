@@ -16,4 +16,5 @@ describe('StudentResolver', () => {
   it('should be defined', () => {
     expect(resolver).toBeDefined();
   });
+
 });

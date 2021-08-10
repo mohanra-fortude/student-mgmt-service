@@ -11,6 +11,14 @@ import { observable } from 'rxjs';
 import { AxiosResponse } from 'axios';
 import { request, gql } from 'graphql-request';
 import axios from 'axios';
+import * as SC from 'socketcluster-client';
+
+
+let socket = SC.create({
+  hostname: 'localhost',
+  port: 8000,
+});
+
 // import { AppGateway } from 'src/app.gateway';
 
 @Processor('bullForExcel')
@@ -18,7 +26,6 @@ export class UploadConsumer {
   constructor(private httpService: HttpService) {}
   @Process('create')
   createJob(job: Job) {
-    console.log('createCandidate1', job.data);
 
     let date = new Date();
     let currentDate: number = date.getFullYear();
@@ -56,35 +63,38 @@ export class UploadConsumer {
     }).then((data) => {
       return data;
     });
-
-    // const res = axios.post("http://localhost:3000/graphql", {
-    //   query: mutation,
-    //   variables: { createStudent: createStudentInput }
-    // }).then((response) => {
-    //   console.log(response.data);
-    // }, (error) => {
-    //   console.log(error);
-    // });
-    // return res;
   }
 
   @OnQueueCompleted()
   completed(job: Job, result: any) {
-    // websocket code
-    // this.appGateway.wss.emit(
-    //   'message',
-    //   `Completed job ${job.id} of type ${job.name} with result ${result}`,
-    // );
+    (async () => {
+      try {
+        await socket.invokePublish(
+          'myChannel',
+          `Completed job ${job.id} of type ${job.name} with result ${result}`,
+        );
+      } catch (error) {
+        Logger.log(error,'--error from cluster server')
+      }
+    })();
     Logger.log(
       `Completed job ${job.id} of type ${job.name} with result ${result}`,
     );
   }
+
+
   @OnQueueFailed()
   failed(job: Job, err: Error) {
-    //websocket code
-    // this.appGateway.handleMessage(
-    //   `Failed job ${job.id} of type ${job.name} with error ${err}...`,
-    // );
+    (async () => {
+      try {
+        await socket.invokePublish(
+          'myChannel',
+          `Failed joob ${job.id} of type ${job.name} with error ${err}`,
+        );
+      } catch (error) {
+        Logger.log(error, '--error from cluster server');
+      }
+    })();
     Logger.log(
       `Failed joob ${job.id} of type ${job.name} with error ${err}...`,
     );
