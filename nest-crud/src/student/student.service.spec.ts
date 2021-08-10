@@ -16,7 +16,7 @@ describe('StudentService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return all students', async () => {
+  it('return all students', async () => {
       jest.spyOn(service, 'findAll');
       expect((await service.findAll()).length).toBeGreaterThan(0);
     });
@@ -27,5 +27,6 @@ describe('StudentService', () => {
   //     };
   //     jest.spyOn(service, 'deleteStudent');
   //   expect(await service.deleteStudent(deleteStudent)).toBeGreaterThan(0);
+  // })
     
 });
