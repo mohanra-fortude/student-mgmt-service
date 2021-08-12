@@ -16,6 +16,8 @@ export class UploadService {
     });
 
     json.Sheet1.shift();
+
+    console.log(json.Sheet1)
     json.Sheet1.map(async (val, key) => {
       try {
         // const date:string = val.C.toISOString().substring(0, 10);

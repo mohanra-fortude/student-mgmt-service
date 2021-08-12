@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
+import { GraphQLFederationModule, GraphQLModule } from '@nestjs/graphql';
 import { BullModule } from '@nestjs/bull';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
@@ -10,7 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
-    GraphQLModule.forRoot({
+    GraphQLFederationModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       uploads: false,
     }),
@@ -20,7 +20,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
         port: 6379,
       },
     }),
-    
+
     UploadModule,
   ],
   controllers: [AppController],

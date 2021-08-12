@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveReference } from '@nestjs/graphql';
 import { UploadService } from './upload.service';
 import { Upload } from './entities/upload.entity';
 
@@ -29,10 +29,12 @@ export class UploadResolver {
       .fill(null)
       .map(() => Math.round(Math.random() * 16).toString(16))
       .join('');
+    
+    console.log(filename, 'ffiffifle')
 
     let fileFirstName: string = path.parse(filename).name;
     let extension: string = path.extname(filename);
-    const changedFileName = fileFirstName +"-"+randomName + extension;
+    const changedFileName = fileFirstName + '-' + randomName + extension;
     return new Promise(async (resolve, reject) =>
       createReadStream()
         .pipe(createWriteStream(`./src/upload-folder/${changedFileName}`))
@@ -46,4 +48,9 @@ export class UploadResolver {
         }),
     );
   }
+
+  // @ResolveReference()
+  // resolveReference(reference: { __typename: string; id: number }): Upload {
+  //   return this.uploadService.addToQueue();
+  // }
 }
