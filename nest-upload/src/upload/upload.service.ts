@@ -18,20 +18,28 @@ export class UploadService {
     json.Sheet1.shift();
 
     console.log(json.Sheet1)
-    json.Sheet1.map(async (val, key) => {
-      try {
-        // const date:string = val.C.toISOString().substring(0, 10);
-        await this.queue.add('create', {
-          id: val.A,
-          name: val.B,
-          dob: val.C,
-          email:val.D
-        });
-      } catch (error) {
-        console.log(error)
-      }
+
+    try {
+      this.queue.add('create', {
+        array:json.Sheet1
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    // json.Sheet1.map(async (val, key) => {
+    //   try {
+    //     // const date:string = val.C.toISOString().substring(0, 10);
+    //     await this.queue.add('create', {
+    //       id: val.A,
+    //       name: val.B,
+    //       dob: val.C,
+    //       email:val.D
+    //     });
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
       
-    });
+    // });
 
   }
 }

@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args, Int, ResolveReference } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  ResolveReference,
+} from '@nestjs/graphql';
 import { UploadService } from './upload.service';
 import { Upload } from './entities/upload.entity';
 
@@ -29,8 +36,8 @@ export class UploadResolver {
       .fill(null)
       .map(() => Math.round(Math.random() * 16).toString(16))
       .join('');
-    
-    console.log(filename, 'ffiffifle')
+
+    console.log(filename, createReadStream, 'ffiffifle');
 
     let fileFirstName: string = path.parse(filename).name;
     let extension: string = path.extname(filename);
