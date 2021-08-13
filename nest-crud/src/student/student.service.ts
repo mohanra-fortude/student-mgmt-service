@@ -15,7 +15,7 @@ export class StudentService {
   //   private studentRepository: Repository<Student>,
   // ) {}
 
-  endpoint = 'http://localhost:5000/graphql';
+  endpoint = process.env.postGraphileEndpoint;
   create(createStudentInput: CreateStudentInput) {
     let date = new Date();
     let currentDate: number = date.getFullYear();
@@ -134,7 +134,6 @@ export class StudentService {
     }).then((data) => {
       return data;
     });
-   
   }
 
   remove(id: number) {

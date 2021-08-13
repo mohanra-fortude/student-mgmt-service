@@ -1,12 +1,15 @@
 import { RemoteGraphQLDataSource } from '@apollo/gateway';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { GATEWAY_BUILD_SERVICE, GraphQLGatewayModule } from '@nestjs/graphql';
 import FileUploadDataSource from '@profusion/apollo-federation-upload';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     GraphQLGatewayModule.forRoot({
       server: {
         // ... Apollo server options
@@ -27,12 +30,11 @@ import { AppService } from './app.service';
           new FileUploadDataSource({
             url,
             useChunkedTransfer: true,
-            
           }),
 
         serviceList: [
-          { name: 'student', url: 'http://localhost:3000/graphql' },
-          { name: 'upload', url: 'http://localhost:3003/graphql' },
+          { name: 'student', url: process.env.CRUD_ENDPOINT },
+          { name: 'upload', url: process.env.UPLOAD_ENDPOINT },
         ],
       },
     }),
