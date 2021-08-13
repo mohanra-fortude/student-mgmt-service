@@ -3,9 +3,10 @@ import { StudentService } from './student.service';
 import { Student } from './entities/student.entity';
 import { CreateStudentInput } from './dto/create-student.input';
 import { UpdateStudentInput } from './dto/update-student.input';
-import { createWriteStream } from 'fs';
+
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
-import { MessagePattern } from '@nestjs/microservices';
+import { createWriteStream } from 'fs';
+import * as path from 'path';
 
 @Resolver((of) => Student)
 export class StudentResolver {
@@ -19,12 +20,12 @@ export class StudentResolver {
 
   @Mutation(() => Student)
   createStudents(
-    @Args({ name: 'createStudentInput', type: () => [CreateStudentInput] }) createStudentInputs: CreateStudentInput[],
+    @Args({ name: 'createStudentInput', type: () => [CreateStudentInput] })
+    createStudentInputs: CreateStudentInput[],
   ) {
     return this.studentService.createStudents(createStudentInputs);
   }
 
-  
 
   @Query(() => [Student], { name: 'student' })
   findAll() {

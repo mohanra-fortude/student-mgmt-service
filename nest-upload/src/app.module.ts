@@ -10,7 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
-    GraphQLFederationModule.forRoot({
+    GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       uploads: false,
     }),

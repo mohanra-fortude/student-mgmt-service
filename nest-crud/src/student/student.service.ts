@@ -10,10 +10,7 @@ import axios from 'axios';
 
 @Injectable()
 export class StudentService {
-  // constructor(
-  //   @InjectRepository(Student)
-  //   private studentRepository: Repository<Student>,
-  // ) {}
+  
 
   endpoint = process.env.postGraphileEndpoint;
   create(createStudentInput: CreateStudentInput) {
@@ -37,8 +34,6 @@ export class StudentService {
       return data;
     });
 
-    // const newStudent = this.studentRepository.create(createStudentInput);
-    // return this.studentRepository.save(newStudent);
   }
 
   createStudents(createStudentInputs: CreateStudentInput[]) {

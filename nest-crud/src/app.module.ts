@@ -9,8 +9,9 @@ import { StudentModule } from './student/student.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    GraphQLFederationModule.forRoot({
+    GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      uploads:false
     }),
     StudentModule,
   ],

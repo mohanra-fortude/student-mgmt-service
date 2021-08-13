@@ -24,7 +24,7 @@ let socket = SC.create({
 @Processor('bullForExcel')
 export class UploadConsumer {
   constructor(private httpService: HttpService) {}
-  @Process('create')
+  @Process('createStudents')
   createJob(job: Job) {
 
     let createStudentInput = []
@@ -49,35 +49,17 @@ export class UploadConsumer {
       createStudentInput.push(obj)
     })
 
-    console.log(createStudentInput)
-
-    // let date = new Date();
-    // let currentDate: number = date.getFullYear();
-    // let userBirthYear = parseInt(job.data.dob.substring(0, 4));
-    // let age: number = currentDate - userBirthYear;
-
-    // 
-
-    //    {`{name:"${job.data.name}",dob:"${job.data.dob}",email:"${job.data.email}"}`
-    // };
-
-    // const mutation = gql`
-    //   mutation CreateStudent($createStudent: CreateStudentInput!) {
-    //     createStudent(createStudentInput: $createStudent }) {
-    //       __typename
-    //     }
-    //   }
-    // `;
+   
 
     const mutation = gql`
-      mutation CreateStudents($createStudents: [StudentInput!]!) {
-        createStudents(input: { createMultiple: $createStudents }) {
+      mutation ($createStudents:[CreateStudentInput!]!){
+        createStudents(createStudentInput: $createStudents) {
           __typename
         }
       }
     `;
 
-    return request('http://localhost:5000/graphql', mutation, {
+    return request('http://localhost:3000/graphql', mutation, {
       createStudents: createStudentInput,
     }).then((data) => {
       return data;
