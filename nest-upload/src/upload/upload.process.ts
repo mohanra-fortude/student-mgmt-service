@@ -28,7 +28,7 @@ export class UploadConsumer {
   createJob(job: Job) {
 
     let createStudentInput = []
-  
+    console.log(job.data, 'jobdata')
 
     job.data.array.map((val: any, key: any) => {
       console.log(val,'valll')
@@ -49,7 +49,7 @@ export class UploadConsumer {
       createStudentInput.push(obj)
     })
 
-   
+   console.log(createStudentInput, 'the object');
 
     const mutation = gql`
       mutation ($createStudents:[CreateStudentInput!]!){
