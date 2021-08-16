@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateStudentInput } from './dto/create-student.input';
+import { UpdateStudentInput } from './dto/update-student.input';
 import { StudentResolver } from './student.resolver';
 import { StudentService } from './student.service';
 
@@ -11,6 +12,36 @@ describe('StudentResolver', () => {
       return {
         data: {
           createStudents: {
+            __typename: 'Student',
+          },
+        },
+      };
+    }),
+
+    createStudents: jest.fn((dto) => {
+      return {
+        data: {
+          createStudents: {
+            __typename: 'Student',
+          },
+        },
+      };
+    }),
+
+    remove: jest.fn((dto) => {
+      return {
+        data: {
+          removeStudent: {
+            __typename: 'Student',
+          },
+        },
+      };
+    }),
+
+    update: jest.fn((dto) => {
+      return {
+        data: {
+          updateStudent: {
             __typename: 'Student',
           },
         },
@@ -44,4 +75,48 @@ describe('StudentResolver', () => {
       },
     }); 
   })
+
+  it('should create students', ()=> {
+    const dto: CreateStudentInput[] = [
+      { id: 2, name: 'student', email: 'student@g.com', dob: '2000-03-03' },
+      { id: 2, name: 'student', email: 'student@g.com', dob: '2000-03-03' },
+    ];
+    
+    expect(resolver.createStudents(dto)).toEqual({
+      data: {
+        createStudents: {
+          __typename: 'Student',
+        },
+      },
+    }); 
+  })
+
+  it('should delete a student', () => {
+
+    expect(resolver.removeStudent(3)).toEqual({
+      data: {
+        removeStudent: {
+          __typename: 'Student',
+        },
+      },
+    });
+  });
+
+  it('should update a student', () => {
+    const dto: UpdateStudentInput = {
+      id: 2,
+      name: 'student',
+      email: 'student@g.com',
+      dob: '2000-03-03',
+    };
+    expect(resolver.updateStudent(dto)).toEqual({
+      data: {
+        updateStudent: {
+          __typename: 'Student',
+        },
+      },
+    });
+  });
+
+  
 });

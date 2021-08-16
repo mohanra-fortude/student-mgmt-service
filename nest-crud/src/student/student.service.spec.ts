@@ -16,17 +16,6 @@ describe('StudentService', () => {
     expect(service).toBeDefined();
   });
 
-  it('return all students', async () => {
-      jest.spyOn(service, 'findAll');
-      expect((await service.findAll()).length).toBeGreaterThan(0);
-    });
- 
-  // it('should delete student from list', async () => {
-  //     const deleteStudent: DeleteStudentInput = {
-  //       id: 3
-  //     };
-  //     jest.spyOn(service, 'deleteStudent');
-  //   expect(await service.deleteStudent(deleteStudent)).toBeGreaterThan(0);
-  // })
+  
     
 });
