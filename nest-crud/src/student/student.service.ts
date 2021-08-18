@@ -1,12 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { CreateStudentInput } from './dto/create-student.input';
 import { UpdateStudentInput } from './dto/update-student.input';
 import { Student } from './entities/student.entity';
-
 import { request, gql } from 'graphql-request';
-import axios from 'axios';
 
 @Injectable()
 export class StudentService {
